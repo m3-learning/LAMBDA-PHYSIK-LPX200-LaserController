@@ -10,21 +10,21 @@ This program creates a UI that is used to control the laser through the communic
 
 
 
-A	RUN STOP key
-B	TRIGGER INT EXT key
-C	MODE key
-D	REPRATE / HV / EGY keys
-E	COUNTS keys
-F	GAS keys
-G	MENU keys
-H	Display
-Function keys
-J	EGY CAL key
-K	BREAK key
-L	EXE key
-M	Cursor keys
-N	ENTER key
-0	Numerical input keys
+- A	RUN STOP key
+- B	TRIGGER INT EXT key
+- C	MODE key
+- D	REPRATE / HV / EGY keys
+- E	COUNTS keys
+- F	GAS keys
+- G	MENU keys
+- H	Display
+- I Function keys
+- J	EGY CAL key
+- K	BREAK key
+- L	EXE key
+- M	Cursor keys
+- N	ENTER key
+- O	Numerical input keys
 
 
 ![image](https://user-images.githubusercontent.com/61993180/186219386-27f01959-3cd1-4588-ac4d-2ede5d3dc2b3.png)
@@ -35,13 +35,13 @@ N	ENTER key
 ![image](https://user-images.githubusercontent.com/61993180/186057996-b0e5fcae-c638-4f1c-9a22-c652289f391d.png)
 
 
-A	Currently active operating mode (laser status) and status codea
-B	Running mode
-C	Repetition rate (internally set)
-D	Currently active charging voltage
-E	Currently emitted beam output energyb
-F	Laser tube pressure
-G	Gas mixture (gas menu)
+- A	Currently active operating mode (laser status) and status codea
+- B	Running mode
+- C	Repetition rate (internally set)
+- D	Currently active charging voltage
+- E	Currently emitted beam output energyb
+- F	Laser tube pressure
+- G	Gas mixture (gas menu)
 
 
 After pressing one of the keys that enables a parameter setting to be changed (e.g. the MODE key), a prompt will appear in the bottom row of the display. Depending on the prompt, use the cursor buttons (right and left) to choose one of the items displayed in parenthesis or use the numerical input keys to enter a numerical value.
