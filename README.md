@@ -1,12 +1,12 @@
 # LAMBDA-PHYSIK-LPX200-LaserController
-- LPX200.py is a python script for controlling, monitoring and collecting data from a laser used for materials research
-- LaserDataCollection.py is a script for colecting data about the laser and storing it in an hdf5 file 
+## This project is a remote control software for controlling, monitoring and data collection on the LPX200 laser mimicking the LAMBDA PHYIK LASERTECHNIK handheld keypad
+- LPX200.py is the python script for controlling and monitoring the laser
+- LaserData.py is a script for colecting data about the laser and storing it in an hdf5 file 
 
 
 This program creates a UI that is used to control the laser through the communication interface. The operating elements are breiefly described below. My program performs all the operations that the keypad does with the exception of the function keys.
 
 ![image](https://user-images.githubusercontent.com/61993180/186057836-513bcc6e-d6ec-43ef-ad39-239c5a09a9bc.png)
-
 
 
 
