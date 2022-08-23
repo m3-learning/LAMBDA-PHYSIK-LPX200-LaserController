@@ -9,6 +9,7 @@ This program creates a UI that is used to control the laser through the communic
 
 
 
+
 A	RUN STOP key
 B	TRIGGER INT EXT key
 C	MODE key
@@ -24,6 +25,10 @@ L	EXE key
 M	Cursor keys
 N	ENTER key
 0	Numerical input keys
+
+
+![image](https://user-images.githubusercontent.com/61993180/186219386-27f01959-3cd1-4588-ac4d-2ede5d3dc2b3.png)
+
 
 
 
