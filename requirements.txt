@@ -1,0 +1,4 @@
+pyqt5
+pyvisa
+h5py
+numpy

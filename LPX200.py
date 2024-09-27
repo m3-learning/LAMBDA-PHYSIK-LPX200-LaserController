@@ -94,9 +94,33 @@ class Control:
         
         
     def sendCommand(self):
-        #print(self.view.displayText().split('\n')[1])
-        resp = self.evaluate(self.view.displayText().split('\n')[1])
-        self.view.setDisplayText(resp)
+        """ Sets second line of the display text to PlainText.
+        Sends the command to the laser and shows the response (if any).
+        """
+        command = self.view.displayText().split('\n')[1].strip()  # Get the second line (the command)
+        
+        if not command:  # Check if the command is empty
+            self.view.clearDisplay()
+            self.view.displayText()+'No command entered'
+            return
+        
+        if '=' in command:  # Parameter command (no response from laser)
+            commRes(command)  # Send the command (write the parameter to the laser)
+            # Instead of waiting for a response, show the updated status
+            status = "MODE : {MODE}\t\t{REPRATE} Hz  {VOLTAGE} kV  {ENERGY} mJ  {PRESSURE} mbar  {GasMix} \n".format(
+                MODE=commRes("MODE?"), 
+                REPRATE=commRes("REPRATE?"), 
+                VOLTAGE=commRes("HV?"), 
+                ENERGY=commRes("EGY?"), 
+                PRESSURE=commRes("PRESSURE?"), 
+                GasMix=commRes("Menu?").split()[2]
+            )
+            self.view.setDisplayText(status)
+        else:  # Non-parameter commands (expecting a response from the laser)
+            resp = self.evaluate(command)  # Send the command and get the response
+            self.view.clearDisplay()
+            self.view.displayText()+ resp.strip()  # Display the response
+
         
        
     def buildCommand(self,sub_comm):
@@ -265,7 +289,7 @@ def main():
     global laser_instr
     rm = pyvisa.ResourceManager()
     print(rm.list_resources())
-    laser_instr = rm.open_resource('ASRL4::INSTR')
+    laser_instr = rm.open_resource('ASRL12::INSTR')
     laser_instr.write_termination = "\r"
     laser_instr.read_termination = "\r"
     #print(commRes("OPMODE=ON"))
