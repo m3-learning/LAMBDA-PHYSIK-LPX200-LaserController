@@ -5,7 +5,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt5.QtWidgets import QGridLayout
 from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QPushButton
@@ -38,8 +38,8 @@ class View(QMainWindow):
         # Button text | position on the QGridLayout
         buttons = {'RUN\nSTOP': (0, 0),'TRIG\nINT/EXT': (0, 1),'MODE': (0, 2),'REP\nRATE': (0, 3),'COUNTS\nSEL': (0, 4),'NEW\nFILL': (0, 5),'MENU\nSEL': (0, 6),'F1': (0, 7),'F6': (0, 8),
                    '7': (1, 0),'8': (1, 1),'9': (1, 2),'HV': (1, 3),'COUNTS\nRESET': (1, 4),'FLUSH\nLINE': (1, 5),'MENU\nRESET': (1, 6),'F2': (1, 7),'F7': (1, 8),
-                   '4': (2, 0),'5': (2, 1),'6': (2, 2),'EGY': (2, 3),'EGY\nCAL': (2, 4),'PURGE\nLINE': (2, 5),'F3': (2, 7),'F8': (2, 8),
-                   '1': (3, 0),'2': (3, 1),'3': (3, 2),'<-': (3, 3),'->': (3, 4),'PURGE\n(Reservoir)': (3, 5),'F4': (3, 7),'F9': (3, 8),
+                   '4': (2, 0),'5': (2, 1),'6': (2, 2),'EGY': (2, 3),'EGY\nCAL': (2, 4),'PURGE\nLINE': (2, 5),'FILTER\nRESET':(2,6),'F3': (2, 7),'F8': (2, 8),
+                   '1': (3, 0),'2': (3, 1),'3': (3, 2),'<-': (3, 3),'->': (3, 4),'PURGE\n(Reservoir)': (3, 5),'STOP\nEGY\nLOG': (3, 6),'F4': (3, 7),'F9': (3, 8),
                    '0': (4, 0),'.': (4, 1),'CLEAR': (4, 2),'ENTER': (4, 3),'EXE': (4, 4),'BREAK': (4, 5),'F5': (4, 7),'F10': (4, 8)
                   }
         # Create the buttons and add them to the grid layout
@@ -90,6 +90,15 @@ class Control:
         self.menus=1
         self.view = view
         self.evaluate=model
+
+        self.energy_logging_active = False # Flag to indicate if energy logging is active
+        self.energy_poll_thread = None # Thread for energy polling
+
+        # Set up polling laser system status every 1 second
+        self.status_timer = QTimer()
+        self.status_timer.timeout.connect(self.poll_laser_status)
+        self.status_timer.start(1000) # 1 second interval
+
         self.connectSignals()
         
         
@@ -121,7 +130,12 @@ class Control:
             self.view.clearDisplay()
             self.view.displayText()+ resp.strip()  # Display the response
 
-        
+            # After the command is sent, check the laser status and start/stop logging
+        if commRes('OPMODE?') == 'ON':
+            self.start_energy_logging()  # Start logging when the laser is on
+        else:
+            self.stop_energy_logging()  # Stop logging when the laser is off
+
        
     def buildCommand(self,sub_comm):
         if self.view.displayText() == 'Not a valid Command':
@@ -131,6 +145,7 @@ class Control:
             self.view.clearDisplay()
             if commRes('OPMODE?') == 'ON' :
                 command = self.view.displayText() + 'OPMODE=OFF'
+
             else :
                 command = self.view.displayText() + 'OPMODE=ON'
                 
@@ -144,7 +159,11 @@ class Control:
         elif sub_comm == 'MODE' :
             self.view.clearDisplay()
             command = self.view.displayText() + 'MODE=' + self.modes[self.m]
-     
+
+        elif sub_comm == 'BREAK' :
+            self.view.clearDisplay()
+            command = self.view.displayText() + 'OPMODE=OFF'
+
         elif sub_comm == 'REP\nRATE' :
             self.view.clearDisplay()
             command = self.view.displayText() + 'REPRATE='
@@ -192,7 +211,61 @@ class Control:
         elif sub_comm == 'PURGE\n(Reservoir)' :
             self.view.clearDisplay()
             command = self.view.displayText() + 'OPMODE=PURGE RESERVOIR'
+
+        elif sub_comm == 'FILTER\nRESET' :
+            """Resets the halogen filter capacity in percent(after the 
+            halogen filter has been replaced)."""
+
+            self.view.clearDisplay()
+            command = self.view.displayText() + 'FILTER CONTAMINATION=RESET'
+
+        elif sub_comm == 'F3' :
+            """Fills laser reservoir w/ 100mb halogen and 1100mb
+               Helium or gas connected to invert valve."""
             
+            self.view.clearDisplay()
+            command = self.view.displayText() + 'OPMODE=PASSIVATION FILL'
+
+        elif sub_comm == 'F4' :
+            """Displays the capacity of the halogen filter in percent."""
+            
+            self.view.clearDisplay()
+            command = self.view.displayText() + 'FILTER CONTAMINATION?'
+
+        elif sub_comm == 'F5' :
+            """Temp Control: Turns “on” or “off” a servo controlled 
+            valve to regulate cooling water."""
+            
+            self.view.clearDisplay()
+            if commRes('TEMP CONTROL?') == 'ON' :
+                command = self.view.displayText() + 'TEMP CONTROL=OFF'
+            else :
+                command = self.view.displayText() + 'TEMP CONTROL=ON'  
+            
+        elif sub_comm == 'F6' :
+            """Transport Fill => Fills laser reservoir to 1500mb Helium or gas connected
+                to inert valve."""
+            
+            self.view.clearDisplay()
+            command = self.view.displayText() + 'OPMODE=TRANSPORT FILL'
+
+        elif sub_comm == 'F7' :
+            """Used w/ Halogen source (generator) or single gas
+            mode. Performs a halogen injection. The partial pressure of halogen injected 
+            depends on the value entered in the Gas Menu."""
+            
+            self.view.clearDisplay()
+            command = self.view.displayText() + 'OPMODE=HI' 
+
+        elif sub_comm == 'F8' :
+            """GASMODE: Switches between premix and single gas operation."""
+            
+            self.view.clearDisplay()
+            if commRes('GASMODE?') == 'PREMIX' :
+                command = self.view.displayText() + 'GASMODE=SINGLE GASES'
+            else :
+                command = self.view.displayText() + 'GASMODE=PREMIX'  
+
         elif sub_comm == '->':
             if('PURGE' in self.view.displayText().split("\n")[1]):
                 self.l +=1
@@ -260,9 +333,9 @@ class Control:
     def connectSignals(self):
         """Connect signals and slots."""
         for btnText, btn in self.view.buttons.items():
-            if btnText not in {'ENTER','EXT','CLEAR','BREAK'} :
+            if btnText not in {'ENTER','EXE','CLEAR','BREAK', ['STOP\nEGY\nLOG']}:
                 btn.clicked.connect(partial(self.buildCommand, btnText))   
-            if btnText in {'F10','F1','F2','F3','F4','F5','F6','F7','F8','F9'}:
+            if btnText in {'F9','F10'}:
                 btn.clicked.connect(self.view.clearDisplay)
                 btn.clicked.connect(partial(self.buildCommand, f"{btnText} Button Not Configured"))
                 
@@ -270,7 +343,27 @@ class Control:
         self.view.buttons['ENTER'].clicked.connect(self.sendCommand)
         self.view.buttons['EXE'].clicked.connect(self.sendCommand)        
         self.view.buttons['CLEAR'].clicked.connect(self.view.clearDisplay)
-        self.view.buttons['BREAK'].clicked.connect(self.view.clearDisplay)
+        self.view.buttons['BREAK'].clicked.connect(self.laserbreak)
+        self.view.buttons['STOP\nEGY\nLOG'].clicked.connect(self.stop_energy_logging)
+
+    def laserbreak(self):
+        """ Stops the laser and clears the display."""
+
+        commRes('OPMODE=OFF')
+        self.view.clearDisplay()
+        self.view.displayText()+'Laser Stopped'
+
+    def poll_laser_status(self):
+        """Poll the laser system status every 1 second and update the display."""
+        status = "MODE : {MODE}\t\t{REPRATE} Hz  {VOLTAGE} kV  {ENERGY} mJ  {PRESSURE} mbar  {GasMix} \n".format(
+            MODE=commRes("MODE?"), 
+            REPRATE=commRes("REPRATE?"), 
+            VOLTAGE=commRes("HV?"), 
+            ENERGY=commRes("EGY?"), 
+            PRESSURE=commRes("PRESSURE?"), 
+            GasMix=commRes("Menu?").split()[2]
+        )
+        self.view.setDisplayText(status)   
         
 def commRes(command):
     try :
@@ -292,6 +385,7 @@ def main():
     laser_instr = rm.open_resource('ASRL12::INSTR')
     laser_instr.write_termination = "\r"
     laser_instr.read_termination = "\r"
+    laser_instr.timeout = 5000
     #print(commRes("OPMODE=ON"))
     
     
