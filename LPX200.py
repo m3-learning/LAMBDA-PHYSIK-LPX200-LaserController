@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QGridLayout
 from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
+import sqlite3
 from functools import partial
 
 import pyvisa
@@ -333,7 +334,7 @@ class Control:
     def connectSignals(self):
         """Connect signals and slots."""
         for btnText, btn in self.view.buttons.items():
-            if btnText not in {'ENTER','EXE','CLEAR','BREAK', ['STOP\nEGY\nLOG']}:
+            if btnText not in {'ENTER','EXE','CLEAR','BREAK', 'STOP\nEGY\nLOG'}:
                 btn.clicked.connect(partial(self.buildCommand, btnText))   
             if btnText in {'F9','F10'}:
                 btn.clicked.connect(self.view.clearDisplay)
@@ -345,6 +346,21 @@ class Control:
         self.view.buttons['CLEAR'].clicked.connect(self.view.clearDisplay)
         self.view.buttons['BREAK'].clicked.connect(self.laserbreak)
         self.view.buttons['STOP\nEGY\nLOG'].clicked.connect(self.stop_energy_logging)
+
+    def start_energy_logging(self):
+        """Start polling the energy level and logging it."""
+        if not self.energy_logging_active:
+            self.energy_logging_active = True
+            self.energy_poll_thread = EnergyPollThread(self)
+            self.energy_poll_thread.start()    
+
+    def stop_energy_logging(self):
+        """Stop polling and logging the energy level."""
+        if self.energy_logging_active:
+            self.energy_logging_active = False
+            if self.energy_poll_thread:
+                self.energy_poll_thread.stop()
+                self.energy_poll_thread = None
 
     def laserbreak(self):
         """ Stops the laser and clears the display."""
@@ -365,6 +381,47 @@ class Control:
         )
         self.view.setDisplayText(status)   
         
+class EnergyPollThread(QThread):
+    """Thread class to poll energy level every 50ms and log it to SQLite."""
+    def __init__(self, control):
+        super().__init__()
+        self.control = control
+        self.running = True
+    
+    def run(self):
+        # Establish a connection to the SQLite database
+        conn = sqlite3.connect('laser_energy_log.db')
+        c = conn.cursor()
+        
+        # Create table if not exists
+        c.execute('''CREATE TABLE IF NOT EXISTS energy_log (
+                        timestamp TEXT, 
+                        energy_value REAL
+                    )''')
+
+        while self.running and self.control.energy_logging_active:
+            try:
+                # Poll energy level from the laser
+                energy_value = float(commRes("EGY?"))  
+                timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+                
+                # Insert the polled energy value and timestamp into the database
+                c.execute("INSERT INTO energy_log (timestamp, energy_value) VALUES (?, ?)", (timestamp, energy_value))
+                conn.commit()
+                
+                # Wait for 50 milliseconds before polling again
+                time.sleep(0.05)
+            except Exception as e:
+                print(f"Error polling energy: {e}")
+                self.running = False
+
+        # Close the database connection when the thread is stopped
+        conn.close()
+
+    def stop(self):
+        """Stop the energy polling thread."""
+        self.running = False
+
 def commRes(command):
     try :
         res = laser_instr.query(command)
