@@ -118,12 +118,17 @@ class Control:
         self.view = view
         self.evaluate = model
         self.energy_logging_active = False  # Track the energy logging state
-        self.energy_poll_thread = None  # Thread for energy polling
+        self.last_logged_energy = 0.0  # Track the last logged energy value
 
-        # Poll laser system status every 1 second
+        # Timer for general laser system status (every 1 second)
         self.status_timer = QTimer()
         self.status_timer.timeout.connect(self.poll_laser_status)
-        self.status_timer.start(20)  # Poll every 1 second
+        self.status_timer.start(1000)  # Poll every 1 second
+
+        # Timer for energy polling (every 50 milliseconds)
+        self.energy_timer = QTimer()
+        self.energy_timer.timeout.connect(self.poll_energy)
+        self.energy_timer.start(50)  # Poll energy every 50 milliseconds
 
         self.connectSignals()
 
@@ -169,22 +174,60 @@ class Control:
 
     def poll_laser_status(self):
         """Poll the laser system status and update the status display."""
-        status = "MODE: {MODE}\t{REPRATE} Hz {VOLTAGE} kV {ENERGY} mJ {PRESSURE} mbar\n".format(
-            MODE=commRes("MODE?"),
-            REPRATE=commRes("REPRATE?"),
-            VOLTAGE=commRes("HV?"),
-            ENERGY=commRes("EGY?"),
-            PRESSURE=commRes("PRESSURE?")
-        )
-        self.view.setStatusText(status)
-
-        # Extract the energy value to log it
         try:
-            energy_value = float(commRes("EGY?"))  # Extract the energy value again
-            timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-            self.log_energy_to_db(timestamp, energy_value)  # Log the energy value with timestamp
+            status = "MODE: {MODE}\t{REPRATE} Hz {VOLTAGE} kV {ENERGY} mJ {PRESSURE} mbar\n".format(
+                MODE=commRes("MODE?"),
+                REPRATE=commRes("REPRATE?"),
+                VOLTAGE=commRes("HV?"),
+                ENERGY=commRes("EGY?"),
+                PRESSURE=commRes("PRESSURE?")
+            )
+            self.view.setStatusText(status)
+
         except Exception as e:
-            print(f"Error logging energy: {e}")
+            print(f"Error polling laser status: {e}")
+
+    def poll_energy(self):
+        """Poll only the energy parameter every 50 milliseconds."""
+        try:
+            # Check if the laser in ON before proceeding
+            if commRes("OPMODE?") == 'ON':
+                energy_value = float(commRes("EGY?"))
+            
+                # Check if the energy value has changed since the last logged value
+                if self.last_logged_energy is None or energy_value != self.last_logged_energy:
+                    # Get the current time with milliseconds
+                    current_time = time.time()
+                    timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(current_time))
+                    milliseconds = int((current_time - int(current_time)) * 1000)
+                    timestamp_with_ms = f"{timestamp}.{milliseconds:03d}"  # Add milliseconds to the timestamp
+
+                    # Log the energy value with the timestamp to the database
+                    self.log_energy_to_db(timestamp_with_ms, energy_value)
+
+                    # Update the last logged energy value
+                    self.last_logged_energy = energy_value
+
+                # Retrieve the current status without replacing other values
+                current_status = self.view.statusDisplay.toPlainText()
+
+                # Find the position of "kV" (for VOLTAGE) and "mJ" (for ENERGY) in the status text
+                start_index = current_status.index("kV") + 2  # The energy value starts right after "kV"
+                end_index = current_status.index("mJ") - 1    # The energy value ends just before "mJ"
+                
+
+                # Replace the current energy value with the updated one
+                updated_status = (
+                    current_status[:start_index] +
+                    f" {energy_value:.2f} " +
+                    current_status[end_index:]
+                )
+
+                # Update the status text with the new ENERGY value
+                self.view.setStatusText(updated_status)
+
+        except Exception as e:
+            print(f"Error polling energy: {e}")
 
     def connectSignals(self):
         """Connect signals and slots."""
