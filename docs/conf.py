@@ -34,7 +34,7 @@ except ImportError:
     from sphinx import apidoc
 
 output_dir = os.path.join(__location__, "api")
-module_dir = os.path.join(__location__, "../src/lambda_physik_lpx200_lasercontroller")
+module_dir = os.path.join(__location__, "../src/lpx")
 try:
     shutil.rmtree(output_dir)
 except FileNotFoundError:
@@ -74,6 +74,10 @@ extensions = [
     "sphinx.ext.napoleon",
 ]
 
+# Generate summary tables automatically
+autosummary_generate = True
+
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -87,8 +91,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "LAMBDA-PHYSIK-LPX200-LaserController"
-copyright = "2024, erinakin"
+project = "M3Learning-Util"
+copyright = "2024, Joshua C. Agar"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -99,7 +103,7 @@ copyright = "2024, erinakin"
 # If you don’t need the separation provided between version and release,
 # just set them both to the same value.
 try:
-    from lambda_physik_lpx200_lasercontroller import __version__ as version
+    from lpx import __version__ as version
 except ImportError:
     version = ""
 
@@ -134,7 +138,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".venv"]
 
 # If true, sectionauthor and moduleauthor directives will be shown in the
 # output. They are ignored by default.
-# show_authors = False
+show_authors = True
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -153,14 +157,26 @@ todo_emit_warnings = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "alabaster"
+html_theme = "pydata_sphinx_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
+# Material theme options (see theme.conf for more information)
 html_theme_options = {
-    "sidebar_width": "300px",
-    "page_width": "1200px"
+    "show_nav_level": 4,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/<your-org>/<your-repo>",
+            "icon": "fab fa-github-square",
+            "type": "fontawesome",
+        },
+    ],
+    "logo": {
+        "image_light": "_static/Drexel_blue_Logo_square_Light.png",
+        "image_dark": "_static/Drexel_blue_Logo_square_Dark.png",
+    },
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -187,9 +203,13 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
+html_css_files = [
+    "custom.css",
+]
+
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
-# html_last_updated_fmt = '%b %d, %Y'
+html_last_updated_fmt = "%b %d, %Y"
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.
@@ -229,7 +249,7 @@ html_static_path = ["_static"]
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "LAMBDA-PHYSIK-LPX200-LaserController-doc"
+htmlhelp_basename = "m3util-doc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
