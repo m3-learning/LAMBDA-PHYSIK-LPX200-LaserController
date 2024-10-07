@@ -24,7 +24,7 @@ import argparse
 import logging
 import sys
 
-from lpx import __version__
+from lambda_physik_lpx200_lasercontroller import __version__
 
 __author__ = "erinakin"
 __copyright__ = "erinakin"

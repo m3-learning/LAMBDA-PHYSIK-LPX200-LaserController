@@ -1,6 +1,6 @@
 import pytest
 
-from lpx.skeleton import fib, main
+from lambda_physik_lpx200_lasercontroller.skeleton import fib, main
 
 __author__ = "erinakin"
 __copyright__ = "erinakin"
