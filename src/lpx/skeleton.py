@@ -36,7 +36,7 @@ _logger = logging.getLogger(__name__)
 # ---- Python API ----
 # The functions defined in this section can be imported by users in their
 # Python scripts/interactive interpreter, e.g. via
-# `from lambda_physik_lpx200_lasercontroller.skeleton import fib`,
+# `from lpx.skeleton import fib`,
 # when using this Python module as a library.
 
 
@@ -144,6 +144,6 @@ if __name__ == "__main__":
     # After installing your project with pip, users can also run your Python
     # modules as scripts via the ``-m`` flag, as defined in PEP 338::
     #
-    #     python -m lambda_physik_lpx200_lasercontroller.skeleton 42
+    #     python -m lpx.skeleton 42
     #
     run()
