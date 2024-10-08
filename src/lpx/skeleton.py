@@ -4,7 +4,7 @@ console script. To run this script uncomment the following lines in the
 ``[options.entry_points]`` section in ``setup.cfg``::
 
     console_scripts =
-         fibonacci = lambda_physik_lpx200_lasercontroller.skeleton:run
+         fibonacci = lpx.skeleton:run
 
 Then run ``pip install .`` (or ``pip install -e .`` for editable mode)
 which will install the command ``fibonacci`` inside your current environment.
@@ -24,7 +24,7 @@ import argparse
 import logging
 import sys
 
-from lambda_physik_lpx200_lasercontroller import __version__
+from lpx import __version__
 
 __author__ = "erinakin"
 __copyright__ = "erinakin"
