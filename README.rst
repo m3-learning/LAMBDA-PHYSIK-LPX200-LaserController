@@ -36,6 +36,7 @@ LPX 200 Laser Controller
 Features
 --------
 
+- **Automatic Serial Port Detection**: Automatically finds and connects to the correct serial port where the laser is connected.
 - **Control Laser Operations**: Perform operations like starting, stopping, and setting laser parameters such as voltage and energy.
 - **Real-time Status Polling**: The GUI continuously polls and updates the laser status every second.
 - **Energy Logging**: Automatically logs energy data into an SQLite database when the laser is active.
@@ -47,7 +48,7 @@ Installation
 1. Install the package via pip::
 
 ```bash
-   pip install lpx200-laser
+   pip install lpx200
 ```
 
 2. Make sure you have **PyQt5** and **PyVISA** installed, as they are required dependencies for this project::
@@ -61,10 +62,10 @@ Usage
 To run the GUI::
 
 ```bash
-   python -m lpx200_laser
+   python lpx200.py
 ```
 
-Once started, you can interact with the laser via the buttons and commands provided in the interface.
+The program will automatically detect the correct serial port that the laser is connected to and establish communication. Once started, you can interact with the laser via the buttons and commands provided in the interface.
 
 Example Commands
 ~~~~~~~~~~~~~~~~
@@ -76,8 +77,8 @@ Example Commands
 Configuration
 -------------
 
-- Ensure that your system is configured with the appropriate COM ports for laser communication.
-- Modify the script to match your system’s COM port if necessary (e.g., ``'ASRL12::INSTR'`` for communication).
+- Ensure that your system is configured with the appropriate COM ports for laser communication. 
+- The application automatically detects the correct serial port. If it fails to detect the port, ensure that the laser is connected and powered on, and that the correct driver is installed.
 
 Dependencies
 ------------
