@@ -28,17 +28,68 @@
     :target: https://pyscaffold.org/
 
 |
+LPX 200 Laser Controller
+========================
 
-====================================
-LAMBDA-PHYSIK-LPX200-LaserController
-====================================
+**LPX 200 Laser Controller** is a Python-based application that provides a graphical user interface (GUI) to control the Lambda Physik LPX 200 Laser. It allows users to poll the system status, execute commands, and log energy readings from the laser system into an SQLite database.
 
+Features
+--------
 
-    Add a short description here!
+- **Control Laser Operations**: Perform operations like starting, stopping, and setting laser parameters such as voltage and energy.
+- **Real-time Status Polling**: The GUI continuously polls and updates the laser status every second.
+- **Energy Logging**: Automatically logs energy data into an SQLite database when the laser is active.
+- **PyQt5 Interface**: A PyQt5-based user interface for ease of use.
 
+Installation
+------------
 
-A longer description of your project goes here...
+1. Install the package via pip::
 
+```bash
+   pip install lpx200-laser
+```
+
+2. Make sure you have **PyQt5** and **PyVISA** installed, as they are required dependencies for this project::
+```bash
+   pip install PyQt5 pyvisa
+```
+
+Usage
+-----
+
+To run the GUI::
+
+```bash
+   python -m lpx200_laser
+```
+
+Once started, you can interact with the laser via the buttons and commands provided in the interface.
+
+Example Commands
+~~~~~~~~~~~~~~~~
+
+- **RUN/STOP**: Start or stop the laser operation.
+- **TRIG INT/EXT**: Toggle between internal and external triggers.
+- **MODE**: Switch between different laser operation modes.
+
+Configuration
+-------------
+
+- Ensure that your system is configured with the appropriate COM ports for laser communication.
+- Modify the script to match your system’s COM port if necessary (e.g., ``'ASRL12::INSTR'`` for communication).
+
+Dependencies
+------------
+
+- **PyQt5**: For building the graphical user interface.
+- **PyVISA**: For communication with the Lambda Physik LPX 200 Laser.
+- **SQLite3**: For logging energy data.
+
+License
+-------
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 .. _pyscaffold-notes:
 

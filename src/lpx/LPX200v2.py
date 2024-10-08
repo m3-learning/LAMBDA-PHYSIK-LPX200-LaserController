@@ -477,17 +477,38 @@ def commRes(command):
         res = f"Error communicating with the laser: {e}"
     return res
 
+def find_laser_port():
+    """Search for the correct serial port connected to the laser."""
+    rm = pyvisa.ResourceManager()
+    available_ports = rm.list_resources()
+    
+    for port in available_ports:
+        try:
+            # Attempt to open the resource
+            laser_instr = rm.open_resource(port)
+            laser_instr.write_termination = "\r"
+            laser_instr.read_termination = "\r"
+            laser_instr.timeout = 1000
+            
+            # Send a basic query to see if it's the laser
+            response = laser_instr.query('MODE?')  # Query the laser mode
+            if response:  # If the laser responds, return the port
+                print(f"Laser found on {port}")
+                return laser_instr  # Return the connected laser instrument
+        except Exception as e:
+            print(f"Failed to connect on {port}: {e}")
+    
+    raise Exception("No valid laser device found on any port.")
 
 def main():
     """Main function."""
-    # Set up pyvisa resource and port for communication
     global laser_instr
-    rm = pyvisa.ResourceManager()
-    print(rm.list_resources())
-    laser_instr = rm.open_resource('ASRL12::INSTR')
-    laser_instr.write_termination = "\r"
-    laser_instr.read_termination = "\r"
-    laser_instr.timeout = 1000
+
+    try:
+        laser_instr = find_laser_port()  # Automatically find the correct port
+    except Exception as e:
+        print(e)
+        return  # Exit the program if no valid port is found
     
     app = QApplication(sys.argv)
     view = View()
