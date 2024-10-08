@@ -1,0 +1,21 @@
+lpx package
+===========
+
+Submodules
+----------
+
+lpx.LPX200 module
+-----------------
+
+.. automodule:: lpx.LPX200
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lpx
+   :members:
+   :undoc-members:
+   :show-inheritance:

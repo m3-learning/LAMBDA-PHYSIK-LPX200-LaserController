@@ -1,0 +1,7 @@
+lpx
+===
+
+.. toctree::
+   :maxdepth: 4
+
+   lpx
