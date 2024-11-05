@@ -32,29 +32,33 @@ class View(QMainWindow):
     def createCommandResponseDisplays(self):
         """Create command and response displays with labels."""
         # Layout to hold command and response display side by side
-        commandResponseLayout = QHBoxLayout()
+        displayLayout = QHBoxLayout()
 
-        # Command Display (on the left)
-        self.commandLabel = QLabel("Command Entry:")  # Add a label for the command display
-        self.generalLayout.addWidget(self.commandLabel)
-        
+        # Create a vertical layout to hold the "Command Entry" label and its display
+        commandLayout = QVBoxLayout()
+        self.commandLabel = QLabel("Command Entry:")
         self.commandDisplay = QTextEdit()
         self.commandDisplay.setFixedHeight(70)
-        self.commandDisplay.setReadOnly(True)  # Prevent user from typing, commands will be via buttons
-        commandResponseLayout.addWidget(self.commandDisplay)
+        self.commandDisplay.setReadOnly(True)
+        commandLayout.addWidget(self.commandLabel)
+        commandLayout.addWidget(self.commandDisplay)
 
-        # Response Display (on the right)
-        self.responseLabel = QLabel("Responses:")  # Add a label for the responses display
-        self.generalLayout.addWidget(self.responseLabel)
-        
+        # Create a vertical layout to hold the "Responses" label and its display
+        responseLayout = QVBoxLayout()
+        self.responseLabel = QLabel("Responses:")
         self.responseDisplay = QTextEdit()
         self.responseDisplay.setFixedHeight(70)
-        self.responseDisplay.setReadOnly(True)  # Read-only for responses
-        self.responseDisplay.setAlignment(Qt.AlignRight)  # Align responses to the right
-        commandResponseLayout.addWidget(self.responseDisplay)
+        self.responseDisplay.setReadOnly(True)
+        self.responseDisplay.setAlignment(Qt.AlignRight)
+        responseLayout.addWidget(self.responseLabel)
+        responseLayout.addWidget(self.responseDisplay)
+
+        # Add both the command and response layouts to the main horizontal layout
+        displayLayout.addLayout(commandLayout)
+        displayLayout.addLayout(responseLayout)
 
         # Add the command and response display layout to the main layout
-        self.generalLayout.addLayout(commandResponseLayout)
+        self.generalLayout.addLayout(displayLayout)
 
 
     def createButtons(self):
@@ -72,7 +76,7 @@ class View(QMainWindow):
                    '1': (3, 0), '2': (3, 1), '3': (3, 2), '<-': (3, 3), '->': (3, 4),
                    'PURGE\n(Reservoir)': (3, 5), 'STOP\nEGY\nLOG': (3, 6), 'F4': (3, 7), 'F9': (3, 8),
                    '0': (4, 0), '.': (4, 1), 'CLEAR': (4, 2), 'ENTER': (4, 3),
-                   'EXE': (4, 4), 'BREAK': (4, 5), 'F5': (4, 7), 'F10': (4, 8)}
+                   'BREAK': (4, 4), 'F5': (4, 7), 'F10': (4, 8)}
 
         for btnText, pos in buttons.items():
             self.buttons[btnText] = QPushButton(btnText)
@@ -492,7 +496,7 @@ def find_laser_port():
             
             # Send a basic query to see if it's the laser
             response = laser_instr.query('MODE?')  # Query the laser mode
-            if response:  # If the laser responds, return the port
+            if response== 'HV':  # If the laser responds, return the port
                 print(f"Laser found on {port}")
                 return laser_instr  # Return the connected laser instrument
         except Exception as e:
