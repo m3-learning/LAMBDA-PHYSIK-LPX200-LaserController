@@ -534,6 +534,162 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Availability**: This command is available in all operating modes.
     - **Parameter Range**: `RESET`.
 
+18. **CLearing the Command Entry (CLEAR)**
+    --------------------------------------
+    The `CLEAR` command clears the command entry window.
+
+    - **Action**: Click the `CLEAR` button to clear the command entry window.
+    - **Expected Output**: The **Command Entry** section will be cleared of any text.
+
+    **Details for CLEAR Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Functionality**:
+      - Clears the command entry window.
+      
+    - **Availability**: This command is available in all operating modes.
+    - **Parameter Range**: `None`.
+
+19. **Entering Laser Commands (ENTER)**
+    -----------------------------------
+    The `ENTER` command sends the entered command to the laser.
+
+    - **Action**: Click the `ENTER` button to send the entered command to the laser.
+    - **Expected Output**: The command will be sent to the laser for execution.
+
+    **Details for ENTER Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Functionality**:
+      - Sends the entered command in the command Entry window to the laser for execution.
+      
+    - **Availability**: This command is available in all operating modes.
+    - **Parameter Range**: `None`.
+
+20. **Emergency Break for the Laser (BREAK)**
+      ----------------------------------------
+    The `BREAK` command is used to stop the laser in case of an emergency.
+
+    - **Action**: Click the `BREAK` button to stop the laser immediately.
+    - **Expected Output**: The laser will be stopped immediately.
+
+    **Details for BREAK Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Functionality**:
+      - Stops the laser immediately in case of an emergency.
+      
+    - **Availability**: This command is available in all operating modes.
+    - **Parameter Range**: `None`.
+
+21. **Starting a Passivation Fill (PASSIVATION FILL)**
+    --------------------------------------------------
+    The `PASSIVATION FILL` command starts a passivation fill procedure.
+
+    - **Action**: Click the `F3` button to initiate the passivation fill process.
+    - **Command Format**: The command sent will be `OPMODE=PASSIVATION FILL`.
+    - **Expected Output**: The **Command Entry** section will display the command, and the passivation fill will commence.
+
+    **Details for PASSIVATION FILL Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Corresponding States**:
+      - **PASSIVATION FILL**: Indicates that the passivation fill is running.
+
+    - **Corresponding Errors**:
+      - **PASSIVATION FILL:3**: **NO GAS FLOW**; while refilling during the passivation fill, no gas flow was detected in the halogen line.
+
+    **Note**: The vacuum pump remains switched on for three minutes after the completion of the procedure.
+
+22. **Displaying Halogen Filter Capacity (FILTER CONTAMINATION?)**
+    ---------------------------------------------------------------
+    The `FILTER CONTAMINATION?` command displays the current capacity of the halogen filter in percent.
+
+    - **Action**: Click the `F4` button to query the halogen filter capacity.
+    - **Command Format**: The command sent will be `FILTER CONTAMINATION?`.
+    - **Expected Output**: The **Responses** section will display the current capacity of the halogen filter in percent.
+
+    **Details for FILTER CONTAMINATION? Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Functionality**:
+      - Displays the capacity of the halogen filter in percent, which indicates the remaining usable life of the filter.
+
+23. **Switching Temperature Control (TEMP CONTROL)**
+    -------------------------------------------------
+    The `TEMP CONTROL` command toggles the temperature control module on or off.
+
+    - **Action**: Click the `F5` button to toggle the temperature control. The system will query the current state and switch it accordingly.
+    - **Command Format**:
+      - `TEMP CONTROL=ON` to switch the temperature control on.
+      - `TEMP CONTROL=OFF` to switch the temperature control off.
+    - **Expected Output**: The **Command Entry** section will display the command for turning the temperature control on or off.
+
+    **Details for TEMP CONTROL Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Functionality**:
+      - Switches the temperature control module on (`ON`) or off (`OFF`).
+      
+    - **Availability**: This command is available in all operating modes.
+    - **Parameter Range**: `ON`, `OFF`.
+
+24. **Starting a Transport Fill (TRANSPORT FILL)**
+    ----------------------------------------------
+    The `TRANSPORT FILL` command starts a transport fill procedure.
+
+    - **Action**: Click the `F6` button to initiate the transport fill process.
+    - **Command Format**: The command sent will be `OPMODE=TRANSPORT FILL`.
+    - **Expected Output**: The **Command Entry** section will display the command, and the transport fill will commence.
+
+    **Details for TRANSPORT FILL Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Corresponding States**:
+      - **TRANSPORT FILL**: Indicates that the transport fill is running.
+
+    - **Corresponding Errors**:
+      - **TRANSPORT FILL:3**: **NO GAS FLOW**; while refilling during the transport fill, no gas flow was detected at the buffer line.
+
+    **Note**: The vacuum pump remains switched on for three minutes after the completion of the procedure.
+
+25. **Performing a Halogen Injection (HI)**
+    ---------------------------------------
+    The `HI` command performs a halogen injection. The partial pressure of halogen injected depends on the value entered in the Gas Menu.
+
+    - **Action**: Click the `F7` button to initiate the halogen injection.
+    - **Command Format**: The command sent will be `OPMODE=HI`.
+    - **Expected Output**: The **Command Entry** section will display the command, and the halogen injection process will commence.
+
+    **Details for HI Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Corresponding States**:
+      - None.
+
+    - **Corresponding Errors**:
+      - None.
+
+26. **Switching Gas Mode (GASMODE)**
+    --------------------------------
+    The `GASMODE` command toggles between premix and single gas operation modes.
+
+    - **Action**: Click the `F8` button to toggle the gas mode. The system will query the current gas mode and switch it accordingly.
+    - **Command Format**:
+      - `GASMODE=SINGLE GASES` to switch to single gas operation.
+      - `GASMODE=PREMIX` to switch to premix gas operation.
+    - **Expected Output**: The **Command Entry** section will display the command for changing the gas mode.
+
+    **Details for GASMODE Command**
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    - **Functionality**:
+      - Displays the current gas mode using `GASMODE?`, which can be either `PREMIX` or `SINGLE GASES`.
+      - Switches between `PREMIX` and `SINGLE GASES` modes.
+
+    - **Availability**: This command is available in **OFF** operating modes only.
+    - **Parameter Range**: `SINGLE GASES`, `PREMIX`.
+
 Example Commands
 ~~~~~~~~~~~~~~~~
 
