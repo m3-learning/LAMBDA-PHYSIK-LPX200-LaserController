@@ -91,7 +91,7 @@ To start the Lambda Physik LPX 200 laser controller GUI, follow these steps:
 
 3. The GUI will open, displaying various buttons and text areas for controlling and monitoring the laser. Below is an image of the initial GUI interface:
 
-.. image:: images/laser_controller_initial_gui.png
+.. image:: ../images/laser_controller_initial_gui.png
    :alt: Initial Laser Controller GUI
    :width: 500px
 
@@ -139,7 +139,7 @@ Below are examples of commonly used commands and their expected output in the di
       - **ON:41**: Energy value too high; entered energy exceeds the menu parameter by more than 5%.
 
 
-   .. image:: images/run_button_example.png
+   .. image:: ../images/run_button_example.png
       :alt: RUN STOP Button Example
       :width: 500px
 
@@ -150,18 +150,21 @@ Below are examples of commonly used commands and their expected output in the di
 
 2. **Stopping the Laser (RUN STOP)**
    ---------------------------------
+
    To stop the laser, use the `RUN STOP` button.
 
    - **Action**: Click the `RUN STOP` button.
-   - **Expected Output**: The **Command Entry** section will update to show that the laser is being set to "OPMODE=OFF" mode. 
+   - **Expected Output**: The **Command Entry** section will update to show that the laser is being set to "OPMODE=OFF" mode.
    - **Action**: Click the `ENTER` button to confirm and send the command to the laser. The system will switch off the laser.
-   - **Responses**: The **Responses** section will display the status of the laser operation. 
-      Potential states include:
-      - OFF: Laser is off, no messages or warnings.
-      - OFF:0: Laser is off, no messages or warnings (only available with certain lasers).
-      - OFF, WAIT: While starting the laser: The laser is waiting for power supply standby and gas circulation fan powering up (duration: 4.1 seconds).
-   **Possible Warnings During OPMODE=ON**
-   When the `ENTER` button is pressed, the following warnings may appear in the Responses section if issues are detected during operation:
+   - **Responses**: The **Responses** section will display the status of the laser operation. Potential states include:
+     - OFF: Laser is off, no messages or warnings.
+     - OFF:0: Laser is off, no messages or warnings (only available with certain lasers).
+     - OFF, WAIT: Laser is waiting for power supply standby and gas circulation fan powering up (duration: 4.1 seconds).
+
+   **Possible Warnings During OPMODE=OFF**:
+
+   When the `ENTER` button is pressed, the following warnings may appear in the **Responses** section if issues are detected:
+
    - **OFF:1**: Laser off, an **INTERLOCK** occurred.
    - **OFF:2**: Laser off, **PRESET ENERGY TOO HIGH**; charging HV exceeds HV\ :sub:`max`.
    - **OFF:4**: Laser off, a **WATCHDOG** has been activated.
@@ -182,6 +185,7 @@ Below are examples of commonly used commands and their expected output in the di
       :width: 500px
 
    *Example Output in Laser Status:*
+
    ::
       
       MODE: HV   1 Hz 18.0 kV 150 mJ 4000 mbar
