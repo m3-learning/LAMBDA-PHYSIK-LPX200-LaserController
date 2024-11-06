@@ -16,28 +16,31 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=19c47fc1" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="_static/documentation_options.js?v=815f36d8"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'readme';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -46,7 +49,8 @@
     <link rel="prev" title="LAMBDA-PHYSIK-LPX200-LaserController" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Oct 08, 2024"/>
+  <meta name="docsearch:version" content="unknown" />
+    <meta name="docbuild:last-update" content="Nov 06, 2024"/>
   </head>
   
   
@@ -62,19 +66,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -82,7 +75,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +82,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -125,7 +117,7 @@
     
     
     <img src="_static/Drexel_blue_Logo_square_Light.png" class="logo__image only-light" alt="M3Learning-Util unknow documentation - Home"/>
-    <script>document.write(`<img src="_static/Drexel_blue_Logo_square_Dark.png" class="logo__image only-dark" alt="M3Learning-Util unknow documentation - Home"/>`);</script>
+    <img src="_static/Drexel_blue_Logo_square_Dark.png" class="logo__image only-dark pst-js-only" alt="M3Learning-Util unknow documentation - Home"/>
   
   
 </a></div>
@@ -200,29 +192,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -283,15 +267,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -310,7 +290,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -378,15 +359,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -475,8 +452,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -485,7 +460,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">LPX 200...</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">LPX 200 Laser Controller</span></li>
   </ul>
 </nav>
 </div>
@@ -522,32 +497,514 @@ document.write(`
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Install the package via pip:</p></li>
-</ol>
-<dl class="simple">
-<dt><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash</dt><dd><p>pip install lpx200</p>
-</dd>
-</dl>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>2. Make sure you have <strong>PyQt5</strong> and <strong>PyVISA</strong> installed, as they are required dependencies for this project::
-<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>bash</p>
-<blockquote>
-<div><p>pip install PyQt5 pyvisa</p>
-</div></blockquote>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-</section>
-<section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
-<p>To run the GUI:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```bash
+<ol class="arabic">
+<li><p><strong>Clone the repository</strong>:</p>
+<p>Clone the repository to your local machine:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/m3-learning/LAMBDA-PHYSIK-LPX200-LaserController.git
+<span class="nb">cd</span><span class="w"> </span>LAMBDA-PHYSIK-LPX200-LaserController
 </pre></div>
 </div>
-<blockquote>
-<div><p>python lpx200.py</p>
-</div></blockquote>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></p>
+</li>
+<li><p><strong>Install the package</strong>:</p>
+<p>Use the following command to install the package along with its dependencies. This will install the <cite>lpx200</cite> package in editable mode (useful for development and modifications):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify installation</strong>:</p>
+<p>After installation, verify that the package is installed correctly by listing the installed packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>list
+</pre></div>
+</div>
+<p>You should see <cite>lpx200</cite> listed as an installed package.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="initializing-the-laser-controller-gui">
+<h1>Initializing the Laser Controller GUI<a class="headerlink" href="#initializing-the-laser-controller-gui" title="Link to this heading">#</a></h1>
+<p>To start the Lambda Physik LPX 200 laser controller GUI, follow these steps:</p>
+<ol class="arabic">
+<li><p>Ensure that the necessary dependencies are installed by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</li>
+<li><p>Run the script to initialize the GUI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/lpx/LPX200.py
+</pre></div>
+</div>
+</li>
+<li><p>The GUI will open, displaying various buttons and text areas for controlling and monitoring the laser. Below is an image of the initial GUI interface:</p></li>
+</ol>
+<a class="reference internal image-reference" href="images/laser_controller_initial_gui.png"><img alt="Initial Laser Controller GUI" src="images/laser_controller_initial_gui.png" style="width: 500px;" />
+</a>
+<ul class="simple">
+<li><p>The “Laser Status” section displays the current mode, repetition rate, high voltage, energy, and pressure.</p></li>
+<li><p>The “Command Entry” section allows you to enter commands, while the “Responses” section shows feedback from the laser controller.</p></li>
+<li><p>Various buttons are available for controlling different aspects of the laser system (e.g., <cite>RUN STOP</cite>, <cite>MODE</cite>, <cite>HV</cite>, etc.).</p></li>
+</ul>
+<p>Once the GUI is open, you can use the buttons to control the laser and monitor its status.</p>
 <p>The program will automatically detect the correct serial port that the laser is connected to and establish communication. Once started, you can interact with the laser via the buttons and commands provided in the interface.</p>
+</section>
+<section id="control-commands">
+<h1>Control Commands<a class="headerlink" href="#control-commands" title="Link to this heading">#</a></h1>
+<p>This section explains how to send different control commands to the Lambda Physik LPX 200 laser using the buttons in the GUI. Each command is sent by clicking a specific button, and the response or status updates are displayed in the <strong>Responses</strong> and <strong>Laser Status</strong> sections.</p>
+<p>Below are examples of commonly used commands and their expected output in the display.</p>
+<ol class="arabic">
+<li><p>To start the laser, use the <cite>RUN STOP</cite> button.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>RUN STOP</cite> button.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will update to show that the laser is being set to “OPMODE=ON” mode.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.The system will initiate the laser start sequence with a starting delay of approximately 4.1 seconds (as noted in section 3.8).</p></li>
+<li><dl class="simple">
+<dt><strong>Responses</strong>: The <strong>Responses</strong> section will display the status of the laser operation.</dt><dd><dl class="simple">
+<dt>Potential states include:</dt><dd><ul>
+<li><p>ON: Laser is on, with no warnings or messages.</p></li>
+<li><p>ON:0: Laser is on, with no warnings or messages (only available for certain laser types).</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Possible Warnings During OPMODE=ON</strong>:</dt><dd><p>When the <cite>ENTER</cite> button is pressed, the following warnings may appear in the <strong>Responses</strong> section if issues are detected during operation:</p>
+<ul>
+<li><p><strong>ON:2</strong>: Preset energy too high; Charging HV exceeds the threshold.</p></li>
+<li><p><strong>ON:03</strong>: Duty cycle exceeded (more than 12,000 pulses in 20 minutes).</p></li>
+<li><p><strong>ON:8</strong>: New gas fill needed; Charging HV exceeds HV<sub>repl</sub>.</p></li>
+<li><p><strong>ON:9</strong>: No vacuum detected during halogen injection; pressure did not reach 30 mbar after 130 seconds.</p></li>
+<li><p><strong>ON:10</strong>: Low pressure during new fill procedure; fluorine source may be empty.</p></li>
+<li><p><strong>ON:13</strong>: Fluorine valve not open; valve test failed.</p></li>
+<li><p><strong>ON:34</strong>: Halogen injection in preparation.</p></li>
+<li><p><strong>ON:36</strong>: Charge On Demand (COD) mode is active.</p></li>
+<li><p><strong>ON:37</strong>: Repetition rate warning; COD mode running above 50 Hz.</p></li>
+<li><p><strong>ON:40</strong>: Input energy is too low; output energy remains above setpoint.</p></li>
+<li><p><strong>ON:41</strong>: Energy value too high; entered energy exceeds the menu parameter by more than 5%.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<a class="reference internal image-reference" href="images/run_button_example.png"><img alt="RUN STOP Button Example" src="images/run_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Laser Status:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MODE</span><span class="p">:</span> <span class="n">HV</span>   <span class="mi">1</span> <span class="n">Hz</span> <span class="mf">18.0</span> <span class="n">kV</span> <span class="mi">150</span> <span class="n">mJ</span> <span class="mi">4000</span> <span class="n">mbar</span>
+</pre></div>
+</div>
+</li>
+<li><p>To stop the laser, use the <cite>RUN STOP</cite> button.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>RUN STOP</cite> button.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will update to show that the laser is being set to “OPMODE=OFF” mode.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser. The system will switch off the laser.</p></li>
+<li><dl class="simple">
+<dt><strong>Responses</strong>: The <strong>Responses</strong> section will display the status of the laser operation.</dt><dd><p>Potential states include:
+- OFF: Laser is off, no messages or warnings.
+- OFF:0: Laser is off, no messages or warnings (only available with certain lasers).
+- OFF, WAIT: While starting the laser: The laser is waiting for power supply standby and gas circulation fan powering up (duration: 4.1 seconds).</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>Possible Warnings During OPMODE=ON</strong>
+When the <cite>ENTER</cite> button is pressed, the following warnings may appear in the Responses section if issues are detected during operation:
+- <strong>OFF:1</strong>: Laser off, an <strong>INTERLOCK</strong> occurred.
+- <strong>OFF:2</strong>: Laser off, <strong>PRESET ENERGY TOO HIGH</strong>; charging HV exceeds HV<sub>max</sub>.
+- <strong>OFF:4</strong>: Laser off, a <strong>WATCHDOG</strong> has been activated.
+- <strong>OFF:5</strong>: Laser off, <strong>FATAL ERROR</strong>; LWL-DATALINK failed (LWL Datalink means the Data Ring).
+- <strong>OFF:6</strong>: Laser off, <strong>POLLING</strong>; at least one laser module did not respond.
+- <strong>OFF:7</strong>: Laser off, <strong>ENERGY CAL. ERROR</strong>; monitor calibration values cannot be adjusted within a range of 99 to 200.
+- <strong>OFF:8</strong>: Laser off, <strong>NEW GAS FILL NEEDED</strong>; charging HV exceeds HV<sub>max</sub>.
+- <strong>OFF:9</strong>: Laser off, <strong>NO VACUUM</strong>; tube may be leaky, but a safety fill was performed successfully.
+- <strong>OFF:10</strong>: (with a fluorine source only) Laser off, <strong>LOW PRESSURE</strong>; sixth fluorine fill did not succeed, source is empty.
+- <strong>OFF:11</strong>: (with a halogen source only) Laser off, <strong>NO CAPACITY LEFT</strong>; halogen source is empty.
+- <strong>OFF:12</strong>: (with a halogen source only) Laser off, <strong>ERROR TEMPERATURE MEASUREMENT</strong>; halogen source temperature measurement failed.
+- <strong>OFF:13</strong>: (with a fluorine source only) Laser off, <strong>FLUORINE VALVE NOT OPEN</strong>; valve test failed or malfunction during filling.
+- <strong>OFF:21</strong>: <strong>WARM-UP 8 min</strong>; laser devices are in the warm-up phase as required by the thyratron.
+- <strong>OFF:26</strong>: Laser off, <strong>LOW LIGHT</strong>; energy monitor does not detect pulses after trigger pulses. This occurs if at least 30% of pulses within 10 seconds are missing.</p>
+<a class="reference internal image-reference" href="images/stop_button_example.png"><img alt="RUN STOP Button Example" src="images/stop_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Laser Status:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MODE</span><span class="p">:</span> <span class="n">HV</span>   <span class="mi">1</span> <span class="n">Hz</span> <span class="mf">18.0</span> <span class="n">kV</span> <span class="mi">150</span> <span class="n">mJ</span> <span class="mi">4000</span> <span class="n">mbar</span>
+</pre></div>
+</div>
+</li>
+<li><p>The <cite>HV</cite> button allows you to set the high voltage level.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>HV</cite> button to open the voltage setting dialog, then enter the desired voltage using the number buttons.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will update to show the set voltage level.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Description</strong>: Sets the charging voltage for the HV constant mode. Ignored in other modes.</p></li>
+<li><p><strong>Availability</strong>: This command is available in all operating modes.</p></li>
+<li><p><strong>Parameter Range</strong>: Depends on the factory settings for the gas menu. This command accepts values to one decimal place.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/hv_button_example.png"><img alt="HV Button Example" src="images/hv_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Laser Status if HV=1:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MODE</span><span class="p">:</span> <span class="n">HV</span>   <span class="mi">1</span> <span class="n">Hz</span> <span class="mf">18.0</span> <span class="n">kV</span> <span class="mi">0</span> <span class="n">mJ</span> <span class="mi">3611</span> <span class="n">mbar</span>
+</pre></div>
+</div>
+</li>
+<li><p>The <cite>REP RATE</cite> button allows you to set the repetition rate of the laser.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>REP RATE</cite> button, then enter the desired repetition rate using the number buttons.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Laser Status</strong> section will display the updated repetition rate.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Description</strong>: Sets the internal repetition rate if <cite>TRIGGER=INT</cite> has been set. If not, the value is remembered as the repetition rate when switched to <cite>TRIGGER=INT</cite>.</p></li>
+<li><p><strong>Availability</strong>: This command is available in <strong>ON</strong> and <strong>OFF</strong> operating modes only.</p></li>
+<li><p><strong>Parameter Range</strong>: Depends on the factory settings of the Gas Menu. High repetition rates may be declined for high HV values.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/rep_rate_button_example.png"><img alt="REP RATE Button Example" src="images/rep_rate_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Laser Status:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MODE</span><span class="p">:</span> <span class="n">HV</span>   <span class="mi">10</span> <span class="n">Hz</span> <span class="mf">18.0</span> <span class="n">kV</span> <span class="mi">150</span> <span class="n">mJ</span> <span class="mi">4000</span> <span class="n">mbar</span>
+</pre></div>
+</div>
+</li>
+<li><p>To switch between internal and external trigger modes, use the <cite>TRIG INT/EXT</cite> button.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>TRIG INT/EXT</cite> button to toggle between internal and external modes.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Laser Status</strong> section will indicate the trigger mode, ‘TRIGGER=EXT’ or ‘TRIGGER=INT’.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/trig_mode_button_example.png"><img alt="Trigger Mode Button Example" src="images/trig_mode_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Command Entry Window:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;TRIGGER=EXT&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>To set the energy value at which the laser shall be stabilized in energy constant mode(HV).</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>EGY</cite> button, then enter the desired energy level.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Responses</strong> section will show the measured energy level.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>1st function</strong>: In energy constant mode, it sets the energy value at which the laser shall be stabilized (“preset energy”). This will be reset during the next start of the laser device. On some lasers, this function is done by the parameter command <cite>EGY SET</cite>.</p></li>
+<li><p><strong>2nd function</strong>: During energy calibration, this setting is needed to input the external energy reading.</p></li>
+<li><p><strong>Availability</strong>: This command is available in <strong>ON</strong> and <strong>OFF</strong> operating modes only.</p></li>
+<li><p><strong>Parameter Range</strong>: Depends on the factory settings of the Gas Menu.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/energy_button_example.png"><img alt="EGY Button Example" src="images/energy_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Command Entry Window:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EGY</span><span class="o">=</span><span class="mi">120</span> <span class="p">(</span><span class="n">mJ</span><span class="p">,</span> <span class="n">NOT</span> <span class="n">INCLUDED</span> <span class="n">IN</span> <span class="n">WINDOW</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><dl class="simple">
+<dt><strong>Starting the Energy Calibration (ENERGY CAL)</strong></dt><dd><p>The <cite>ENERGY CAL</cite> command initiates the energy calibration procedure.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>EGY CAL</cite> button to start the energy calibration process.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=ENERGY CAL</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command, and the energy calibration procedure will begin.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The <cite>MODE</cite> button allows you to switch between different laser operation modes.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>MODE</cite> button to open the mode selection dialog.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will update to show the selected mode.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Description</strong>: Default is set to MODE=HV. To change laser operation mode, modify ‘MODE’button command in ‘LPX200.py’</dt><dd><p>This switches between different laser operation modes HV, EGY PGR or EGY NGR.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>Availability</strong>: This command is available in all operating modes.</p></li>
+<li><p><strong>Parameter Range</strong>: The available modes depend on the factory settings of the Gas Menu.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/mode_button_example.png"><img alt="MODE Button Example" src="images/mode_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Command Entry Window:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MODE</span><span class="o">=</span><span class="n">HV</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<section id="additional-commands">
+<h2>Additional Commands<a class="headerlink" href="#additional-commands" title="Link to this heading">#</a></h2>
+<p>Explore other buttons in the GUI for more controls, such as <cite>PURGE LINE</cite>, <cite>MENU SEL</cite>, and <cite>COUNTS RESET</cite>. Each button provides a unique functionality, enabling a full range of control over the laser’s settings and parameters.</p>
+<p><strong>Note</strong>: The status display and response display will automatically update to reflect the results of each command.</p>
+<ol class="arabic" start="9">
+<li><p>The <cite>COUNTS SEL</cite> button allows you to set the countdown value for external trigger pulses.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>COUNTS SEL</cite> button, then enter the desired number of trigger pulses.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the current countdown value set for the laser.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/counts_sel_button_example.png"><img alt="MODE Button Example" src="images/counts_sel_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Command Entry Window:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COUNTS</span><span class="o">=</span><span class="mi">1000</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Description</strong>: Sets the value for a countdown. The laser will now only accept external trigger pulses up to the specified <cite>COUNTS</cite> value. Once the countdown reaches zero, the laser stops and <cite>COUNTS</cite> is reset to zero.</p></li>
+<li><p><strong>Availability</strong>: This command is available in <strong>OFF</strong> operating modes only.</p></li>
+<li><p><strong>Parameter Range</strong>: 0–65535.</p></li>
+</ul>
+</li>
+<li><p><strong>Resetting the Pulse Counter (COUNTS RESET)</strong></p></li>
+</ol>
+<blockquote>
+<div><p>The <cite>COUNTS RESET</cite> button allows you to reset the pulse counter to zero.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>COUNTS RESET</cite> button.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the reset pulse counter value.</p></li>
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to confirm and send the command to the laser.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/counts_reset_button_example.png"><img alt="MODE Button Example" src="images/counts_reset_button_example.png" style="width: 500px;" />
+</a>
+<p><em>Example Output in Command Entry Window:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COUNTS</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Description</strong>: Resets the pulse counter to zero.</p></li>
+<li><p><strong>Availability</strong>: This command is available in <strong>OFF</strong> operating modes only.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="11">
+<li><p><strong>Purging the Line (PURGE LINE)</strong></p></li>
+</ol>
+<blockquote>
+<div><p>The <cite>PURGE LINE</cite> command allows you to fill a specified line with the gas connected to the inert gas line.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>PURGE LINE</cite> button. The system will use the currently selected line from the <cite>self.lines</cite> array (<cite>BUFFER</cite>, <cite>HALOGEN</cite>, <cite>INERT</cite>, <cite>RARE</cite>).</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=PURGE &lt;xy&gt; LINE</cite>, where <cite>&lt;xy&gt;</cite> represents the selected line name.</p></li>
+<li><p><strong>Example</strong>:</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will update to display the purge command. The process will continue, and the vacuum pump will remain switched on for three minutes after completion if the halogen line is used.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Corresponding States</strong>:
+- <strong>PURGE &lt;xy&gt; LINE</strong>: Indicates that the filling of <cite>&lt;xy&gt;</cite> line is in progress.</p></li>
+<li><p><strong>Corresponding Errors</strong>:
+- <strong>None</strong></p></li>
+</ul>
+<p><strong>Note</strong>: The vacuum pump remains switched on for three minutes after the completion of the procedure, but only for the halogen line.</p>
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p><strong>Purging the Reservoir (PURGE RESERVOIR)</strong></p></li>
+</ol>
+<blockquote>
+<div><p>The <cite>PURGE RESERVOIR</cite> command starts the purge reservoir procedure.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>PURGE (Reservoir)</cite> button to initiate the reservoir purge process.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=PURGE RESERVOIR</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will update to display the command, and the procedure will start. The vacuum pump will remain switched on for three minutes after the completion of the procedure.</p></li>
+</ul>
+<a class="reference internal image-reference" href="images/purge_reservoir_button_example.png"><img alt="MODE Button Example" src="images/purge_reservoir_button_example.png" style="width: 500px;" />
+</a>
+<ul class="simple">
+<li><p><strong>Corresponding States</strong>:
+- <strong>PURGE RESERVOIR</strong>: Indicates that the purge reservoir procedure is running.</p></li>
+<li><p><strong>Corresponding Errors</strong>:
+- <strong>PURGE RESERVOIR:3</strong>: <strong>NO GAS FLOW</strong>; while refilling, during the purge reservoir procedure, no gas flow was detected in one of the gas lines.</p></li>
+</ul>
+<p><strong>Note</strong>: The vacuum pump remains switched on for three minutes after the completion of the procedure.</p>
+</div></blockquote>
+<ol class="arabic simple" start="13">
+<li><p>The <cite>NEW FILL</cite> command initiates the new fill procedure for the laser.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>NEW FILL</cite> button to start the new fill process.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=NEW FILL</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command, and the procedure for filling will begin.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic" start="14">
+<li><p>The <cite>FLUSH LINE</cite> command evacuates the specified line for two seconds.</p>
+<ul>
+<li><p><strong>Action</strong>: Click the <cite>FLUSH LINE</cite> button to initiate the flush process. The system will use the currently selected line from the <cite>self.lines</cite> array (<cite>BUFFER</cite>, <cite>HALOGEN</cite>, <cite>INERT</cite>, <cite>RARE</cite>).</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=FLUSH &lt;xy&gt; LINE</cite>, where <cite>&lt;xy&gt;</cite> represents the selected line name.</p></li>
+<li><p><strong>Example</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>OPMODE=FLUSH HALOGEN LINE
+</pre></div>
+</div>
+<p>This command evacuates the halogen line.</p>
+</li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command, and the flushing process will begin.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic" start="15">
+<li><p>The <cite>MENU</cite> command allows you to select the Gas Menu by number, which determines various parameters for the laser operation.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>MENU SEL</cite> button to select the appropriate gas menu. The system will use the value stored in <cite>self.menus</cite>.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>MENU=&lt;number&gt;</cite>, where <cite>&lt;number&gt;</cite> represents the chosen gas menu.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command for selecting the gas menu, and the laser controller will adjust its parameters based on the selected menu.</p></li>
+</ul>
+<ul>
+<li><p><strong>Functionality</strong>:
+- Determines the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Name of the gas,</p></li>
+<li><p>Wavelength,</p></li>
+<li><p>Default gas mode (see <cite>GASMODE</cite>),</p></li>
+<li><p>Partial pressures of the gases,</p></li>
+<li><p>Default tube pressure (see <cite>OFF 27</cite>),</p></li>
+<li><p>HV<sub>min</sub>, HV<sub>max</sub>,</p></li>
+<li><p>Default beam output energy constant value.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>The <cite>MENU</cite> command can also reset the current Gas Menu to factory settings using <cite>MENU=RESET</cite>.</p></li>
+</ul>
+</li>
+<li><p><strong>Availability</strong>: This command is available in <strong>OFF</strong> operating modes only.</p></li>
+<li><p><strong>Parameter Range</strong>: 1–6 (depends on the number of available Gas Menus) or <cite>RESET</cite>.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Incrementing Menus</strong>: The <cite>-&gt;</cite> button increments the current menu selection by 1. If the menu exceeds 6, it wraps around to 1.</p></li>
+<li><p><strong>Decrementing Menus</strong>: The <cite>&lt;-</cite> button decrements the current menu selection by 1. If the menu is less than 1, it wraps around to 6.</p></li>
+</ul>
+</li>
+<li><p>The <cite>MENU RESET</cite> command allows you to reset the current Gas Menu to factory settings.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>MENU RESET</cite> button to reset the gas menu.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>MENU=RESET</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the reset command, and the laser controller will revert the selected gas menu to its factory settings.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="17">
+<li><p>The <cite>FILTER RESET</cite> command resets the halogen filter capacity percentage after the halogen filter has been replaced.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>FILTER RESET</cite> button to reset the halogen filter capacity.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>FILTER CONTAMINATION=RESET</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the reset command, and the filter capacity will be reset.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic" start="18">
+<li><p>The <cite>CLEAR</cite> command clears the command entry window.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>CLEAR</cite> button to clear the command entry window.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will be cleared of any text.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Functionality</strong>:
+- Clears the command entry window.</p></li>
+<li><p><strong>Availability</strong>: This command is available in all operating modes.</p></li>
+<li><p><strong>Parameter Range</strong>: <cite>None</cite>.</p></li>
+</ul>
+</li>
+<li><p>The <cite>ENTER</cite> command sends the entered command to the laser.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>ENTER</cite> button to send the entered command to the laser.</p></li>
+<li><p><strong>Expected Output</strong>: The command will be sent to the laser for execution.</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Functionality</strong>:
+- Sends the entered command in the command Entry window to the laser for execution.</p></li>
+<li><p><strong>Availability</strong>: This command is available in all operating modes.</p></li>
+<li><p><strong>Parameter Range</strong>: <cite>None</cite>.</p></li>
+</ul>
+</li>
+<li><dl class="simple">
+<dt><strong>Emergency Break for the Laser (BREAK)</strong></dt><dd></dd>
+</dl>
+<p>The <cite>BREAK</cite> command is used to stop the laser in case of an emergency.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>BREAK</cite> button to stop the laser immediately.</p></li>
+<li><p><strong>Expected Output</strong>: The laser will be stopped immediately.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="21">
+<li><p>The <cite>PASSIVATION FILL</cite> command starts a passivation fill procedure.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>F3</cite> button to initiate the passivation fill process.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=PASSIVATION FILL</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command, and the passivation fill will commence.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="22">
+<li><p>The <cite>FILTER CONTAMINATION?</cite> command displays the current capacity of the halogen filter in percent.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>F4</cite> button to query the halogen filter capacity.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>FILTER CONTAMINATION?</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Responses</strong> section will display the current capacity of the halogen filter in percent.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="23">
+<li><p>The <cite>TEMP CONTROL</cite> command toggles the temperature control module on or off.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>F5</cite> button to toggle the temperature control. The system will query the current state and switch it accordingly.</p></li>
+<li><p><strong>Command Format</strong>:
+- <cite>TEMP CONTROL=ON</cite> to switch the temperature control on.
+- <cite>TEMP CONTROL=OFF</cite> to switch the temperature control off.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command for turning the temperature control on or off.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="24">
+<li><p>The <cite>TRANSPORT FILL</cite> command starts a transport fill procedure.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>F6</cite> button to initiate the transport fill process.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=TRANSPORT FILL</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command, and the transport fill will commence.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="25">
+<li><p>The <cite>HI</cite> command performs a halogen injection. The partial pressure of halogen injected depends on the value entered in the Gas Menu.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>F7</cite> button to initiate the halogen injection.</p></li>
+<li><p><strong>Command Format</strong>: The command sent will be <cite>OPMODE=HI</cite>.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command, and the halogen injection process will commence.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<ol class="arabic simple" start="26">
+<li><p>The <cite>GASMODE</cite> command toggles between premix and single gas operation modes.</p>
+<ul class="simple">
+<li><p><strong>Action</strong>: Click the <cite>F8</cite> button to toggle the gas mode. The system will query the current gas mode and switch it accordingly.</p></li>
+<li><p><strong>Command Format</strong>:
+- <cite>GASMODE=SINGLE GASES</cite> to switch to single gas operation.
+- <cite>GASMODE=PREMIX</cite> to switch to premix gas operation.</p></li>
+<li><p><strong>Expected Output</strong>: The <strong>Command Entry</strong> section will display the command for changing the gas mode.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div></div></blockquote>
 <section id="example-commands">
 <h3>Example Commands<a class="headerlink" href="#example-commands" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -618,7 +1075,8 @@ information on PyScaffold see <a class="reference external" href="https://pyscaf
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -632,7 +1090,11 @@ information on PyScaffold see <a class="reference external" href="https://pyscaf
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LPX 200 Laser Controller</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-the-laser-controller-gui">Initializing the Laser Controller GUI</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#control-commands">Control Commands</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-commands">Additional Commands</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-commands">Example Commands</a></li>
 </ul>
 </li>
@@ -668,8 +1130,8 @@ information on PyScaffold see <a class="reference external" href="https://pyscaf
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -689,7 +1151,7 @@ information on PyScaffold see <a class="reference external" href="https://pyscaf
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>
@@ -702,7 +1164,7 @@ information on PyScaffold see <a class="reference external" href="https://pyscaf
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.0.
 </p></div>
       
     </div>
