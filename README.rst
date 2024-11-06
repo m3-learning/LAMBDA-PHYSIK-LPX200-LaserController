@@ -139,7 +139,7 @@ Below are examples of commonly used commands and their expected output in the di
       - **ON:41**: Energy value too high; entered energy exceeds the menu parameter by more than 5%.
 
 
-   .. image:: images/run_stop_button_example.png
+   .. image:: images/run_button_example.png
       :alt: RUN STOP Button Example
       :width: 500px
 
@@ -177,7 +177,7 @@ Below are examples of commonly used commands and their expected output in the di
    - **OFF:21**: **WARM-UP 8 min**; laser devices are in the warm-up phase as required by the thyratron.
    - **OFF:26**: Laser off, **LOW LIGHT**; energy monitor does not detect pulses after trigger pulses. This occurs if at least 30% of pulses within 10 seconds are missing.
 
-   .. image:: images/run_stop_button_example.png
+   .. image:: images/stop_button_example.png
       :alt: RUN STOP Button Example
       :width: 500px
 
@@ -287,6 +287,10 @@ Below are examples of commonly used commands and their expected output in the di
     - **Command Format**: The command sent will be `OPMODE=ENERGY CAL`.
     - **Expected Output**: The **Command Entry** section will display the command, and the energy calibration procedure will begin.
 
+   .. image:: images/energy_cal_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
     **Details for ENERGY CAL Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -337,6 +341,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
    - **Expected Output**: The **Command Entry** section will display the current countdown value set for the laser.
    - **Action**: Click the `ENTER` button to confirm and send the command to the laser.
 
+   .. image:: images/counts_sel_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
    *Example Output in Command Entry Window:*
    ::
       
@@ -357,6 +365,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
    - **Expected Output**: The **Command Entry** section will display the reset pulse counter value.
    - **Action**: Click the `ENTER` button to confirm and send the command to the laser.
 
+   .. image:: images/counts_reset_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
    *Example Output in Command Entry Window:*
    ::
       
@@ -375,7 +387,11 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
    - **Action**: Click the `PURGE LINE` button. The system will use the currently selected line from the `self.lines` array (`BUFFER`, `HALOGEN`, `INERT`, `RARE`). 
    - **Command Format**: The command sent will be `OPMODE=PURGE <xy> LINE`, where `<xy>` represents the selected line name.
    - **Example**: 
-     
+
+   .. image:: images/purge_line_button_example.png
+      :alt: MODE Button Example
+      :width: 500px  
+
      *Example Output in Command Entry Window:*
       ::
 
@@ -403,6 +419,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
    - **Command Format**: The command sent will be `OPMODE=PURGE RESERVOIR`.
    - **Expected Output**: The **Command Entry** section will update to display the command, and the procedure will start. The vacuum pump will remain switched on for three minutes after the completion of the procedure.
 
+   .. image:: images/purge_reservoir_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
    **Details for PURGE RESERVOIR Command**
    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -420,6 +440,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Action**: Click the `NEW FILL` button to start the new fill process.
     - **Command Format**: The command sent will be `OPMODE=NEW FILL`.
     - **Expected Output**: The **Command Entry** section will display the command, and the procedure for filling will begin.
+
+   .. image:: images/new_fill_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for NEW FILL Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -450,6 +474,9 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
       This command evacuates the halogen line.
 
     - **Expected Output**: The **Command Entry** section will display the command, and the flushing process will begin.
+   .. image:: images/flush_line_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for FLUSH LINE Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -501,6 +528,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Command Format**: The command sent will be `MENU=RESET`.
     - **Expected Output**: The **Command Entry** section will display the reset command, and the laser controller will revert the selected gas menu to its factory settings.
 
+   .. image:: images/menu_reset_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
     **Details for MENU RESET Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -524,6 +555,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Action**: Click the `FILTER RESET` button to reset the halogen filter capacity.
     - **Command Format**: The command sent will be `FILTER CONTAMINATION=RESET`.
     - **Expected Output**: The **Command Entry** section will display the reset command, and the filter capacity will be reset.
+
+   .. image:: images/filter_reset_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for FILTER RESET Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -573,6 +608,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Action**: Click the `BREAK` button to stop the laser immediately.
     - **Expected Output**: The laser will be stopped immediately.
 
+   .. image:: images/break_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
     **Details for BREAK Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -589,6 +628,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Action**: Click the `F3` button to initiate the passivation fill process.
     - **Command Format**: The command sent will be `OPMODE=PASSIVATION FILL`.
     - **Expected Output**: The **Command Entry** section will display the command, and the passivation fill will commence.
+
+   .. image:: images/passivation_fill_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for PASSIVATION FILL Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -609,6 +652,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Command Format**: The command sent will be `FILTER CONTAMINATION?`.
     - **Expected Output**: The **Responses** section will display the current capacity of the halogen filter in percent.
 
+   .. image:: images/filter_contamination_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
     **Details for FILTER CONTAMINATION? Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -624,6 +671,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
       - `TEMP CONTROL=ON` to switch the temperature control on.
       - `TEMP CONTROL=OFF` to switch the temperature control off.
     - **Expected Output**: The **Command Entry** section will display the command for turning the temperature control on or off.
+
+   .. image:: images/temp_control_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for TEMP CONTROL Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -641,6 +692,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Action**: Click the `F6` button to initiate the transport fill process.
     - **Command Format**: The command sent will be `OPMODE=TRANSPORT FILL`.
     - **Expected Output**: The **Command Entry** section will display the command, and the transport fill will commence.
+
+   .. image:: images/transport_fill_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for TRANSPORT FILL Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -661,6 +716,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
     - **Command Format**: The command sent will be `OPMODE=HI`.
     - **Expected Output**: The **Command Entry** section will display the command, and the halogen injection process will commence.
 
+   .. image:: images/halogen_injection_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
+
     **Details for HI Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -679,6 +738,10 @@ Explore other buttons in the GUI for more controls, such as `PURGE LINE`, `MENU 
       - `GASMODE=SINGLE GASES` to switch to single gas operation.
       - `GASMODE=PREMIX` to switch to premix gas operation.
     - **Expected Output**: The **Command Entry** section will display the command for changing the gas mode.
+
+   .. image:: images/gas_mode_button_example.png
+      :alt: MODE Button Example
+      :width: 500px
 
     **Details for GASMODE Command**
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
