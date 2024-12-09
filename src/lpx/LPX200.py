@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QTextEdit, QPushButton, QVBoxLayout, QGridLayout, QLabel, QHBoxLayout
-from PyQt5.QtCore import QTimer, QThread, Qt
+from PyQt5.QtCore import QTimer, Qt
 import sqlite3
 import time
 from functools import partial
@@ -49,7 +49,7 @@ class View(QMainWindow):
         self.responseDisplay = QTextEdit()
         self.responseDisplay.setFixedHeight(70)
         self.responseDisplay.setReadOnly(True)
-        self.responseDisplay.setAlignment(Qt.AlignRight)
+        self.responseDisplay.setAlignment(Qt.AlignmentFlag.AlignRight)
         responseLayout.addWidget(self.responseLabel)
         responseLayout.addWidget(self.responseDisplay)
 
@@ -172,8 +172,8 @@ class Control:
             response = self.evaluate(command)
 
             # Clear both command and response displays to prepare for the next command
-        QTimer.singleShot(1000, self.view.clearCommandDisplay)  # Slight delay to keep the current command visible
-        QTimer.singleShot(1000, self.view.responseDisplay.clear)  # Clear after 1 second to allow user to see the response   
+        QTimer.singleShot(5000, self.view.clearCommandDisplay)  # Slight delay to keep the current command visible
+        QTimer.singleShot(5000, self.view.responseDisplay.clear)  # Clear after 1 second to allow user to see the response   
 
 
     def poll_laser_status(self):
@@ -516,7 +516,7 @@ def main():
     
     app = QApplication(sys.argv)
     view = View()
-    control = Control(view=view, model=commRes)
+    _control = Control(view=view, model=commRes)
     view.show()
     sys.exit(app.exec_())
 
